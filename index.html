@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>토랑토랑 다운로드</title>
+<meta name="description" content="토랑토랑 — 말랑말랑 레스토랑 & 모험. 맥·윈도우용 테스트 빌드 다운로드">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbf1ea;
+    --bg2: #f6dfd3;
+    --card: #fffaf6;
+    --ink: #3d2a2e;
+    --muted: #8a7176;
+    --line: #ecd9cf;
+    --peach: #ff9f7f;
+    --peach-dark: #e9785a;
+    --mint: #7fcfae;
+    --shadow: 0 10px 30px rgba(120, 70, 60, 0.12);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #231a1d; --bg2: #2d2124; --card: #2f2427; --ink: #f6e9e4; --muted: #b9a2a6;
+      --line: #46363a; --peach: #ff9f7f; --peach-dark: #ffb59b; --mint: #8fdcbc;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #231a1d; --bg2: #2d2124; --card: #2f2427; --ink: #f6e9e4; --muted: #b9a2a6;
+    --line: #46363a; --peach: #ff9f7f; --peach-dark: #ffb59b; --mint: #8fdcbc;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; color: var(--ink);
+    background: radial-gradient(1200px 600px at 80% -10%, var(--bg2), transparent 60%), var(--bg);
+    font-family: "Gowun Dodum", "Nunito", system-ui, -apple-system, sans-serif; line-height: 1.6;
+  }
+  main { max-width: 880px; margin: 0 auto; padding: 56px 16px 40px; }
+  header { text-align: center; margin-bottom: 36px; }
+  .logo { font-family: "Nunito", sans-serif; font-weight: 800; font-size: clamp(40px, 9vw, 68px); letter-spacing: -1px; margin: 0; color: var(--peach-dark); }
+  .tagline { margin: 4px 0 0; color: var(--muted); font-size: 18px; }
+  .meta { margin-top: 14px; display: inline-flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .pill { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: 14px; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 26px 24px; box-shadow: var(--shadow); position: relative; display: flex; flex-direction: column; gap: 10px; }
+  .card.recommended { border: 2px solid var(--peach); }
+  .badge { position: absolute; top: -12px; left: 22px; background: var(--peach); color: #3d2a2e; font-size: 13px; font-weight: 700; padding: 3px 12px; border-radius: 999px; display: none; }
+  .card.recommended .badge { display: inline-block; }
+  .card h2 { margin: 0; font-family: "Nunito", "Gowun Dodum", sans-serif; font-size: 24px; display: flex; align-items: center; gap: 10px; }
+  .card h2 svg { width: 26px; height: 26px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .btn { margin-top: 8px; display: inline-flex; justify-content: center; align-items: center; gap: 8px; text-decoration: none; font-weight: 700; font-size: 17px; padding: 14px 18px; border-radius: 14px; border: 2px solid var(--peach); color: var(--ink); transition: transform .12s ease, background .12s ease; }
+  .btn:hover { transform: translateY(-1px); background: rgba(255, 159, 127, 0.12); }
+  .recommended .btn { background: var(--peach); color: #3d2a2e; }
+  .recommended .btn:hover { background: var(--peach-dark); }
+  .size { font-size: 13px; color: var(--muted); }
+  .notice { margin: 22px 0 0; text-align: center; color: var(--muted); font-size: 15px; }
+  details { margin-top: 28px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px 20px; }
+  details + details { margin-top: 12px; }
+  summary { cursor: pointer; font-weight: 700; font-size: 17px; }
+  details ol { margin: 10px 0 0; padding-left: 22px; }
+  details li { margin: 6px 0; }
+  kbd { background: var(--bg2); border-radius: 6px; padding: 1px 6px; font-family: inherit; font-size: 14px; }
+  footer { margin-top: 40px; text-align: center; color: var(--muted); font-size: 13px; }
+  .lang { position: fixed; top: 14px; right: 16px; display: flex; gap: 6px; }
+  .lang button { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 999px; padding: 4px 10px; font: inherit; font-size: 13px; cursor: pointer; }
+  .lang button[aria-pressed="true"] { border-color: var(--peach); }
+  @media (max-width: 520px) { main { padding-top: 64px; } }
+</style>
+</head>
+<body>
+<div class="lang">
+  <button type="button" data-set-lang="ko">한국어</button>
+  <button type="button" data-set-lang="en">English</button>
+</div>
+<main>
+  <header>
+    <h1 class="logo">토랑토랑</h1>
+    <p class="tagline" data-t="tagline">말랑말랑 레스토랑 &amp; 모험</p>
+    <div class="meta">
+      <span class="pill" id="version">v0.1.0</span>
+      <span class="pill" id="date" data-t="test">테스트 빌드</span>
+    </div>
+  </header>
+
+  <div class="grid">
+    <section class="card" id="card-mac">
+      <span class="badge" data-t="recommended">이 컴퓨터에 추천</span>
+      <h2>
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.6-1-2.6-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1 2.9 1.1.1 2.1-.5 2.8-1.3z"/></svg>
+        macOS
+      </h2>
+      <p data-t="macDesc">애플 실리콘(M1~)과 인텔 맥 모두 돼요.</p>
+      <a class="btn" id="dl-mac" href="https://github.com/HOONY-LEE/torangtorang-download/releases/latest/download/TorangTorang-Mac.zip" data-t="downloadMac">맥용 받기</a>
+      <span class="size" id="size-mac"></span>
+    </section>
+
+    <section class="card" id="card-win">
+      <span class="badge" data-t="recommended">이 컴퓨터에 추천</span>
+      <h2>
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5l7.4-1v7.1H3V5.5zm8.3-1.1L21 3v8.6h-9.7V4.4zM3 12.4h7.4v7.1L3 18.5v-6.1zm8.3 0H21V21l-9.7-1.4v-7.2z"/></svg>
+        Windows
+      </h2>
+      <p data-t="winDesc">윈도우 10·11 (64비트)</p>
+      <a class="btn" id="dl-win" href="https://github.com/HOONY-LEE/torangtorang-download/releases/latest/download/TorangTorang-Windows.zip" data-t="downloadWin">윈도우용 받기</a>
+      <span class="size" id="size-win"></span>
+    </section>
+  </div>
+
+  <p class="notice" id="notice"></p>
+
+  <details id="help-mac">
+    <summary data-t="macHowTitle">맥에서 실행하는 법</summary>
+    <ol>
+      <li data-t="mac1">받은 zip 을 더블클릭해서 풀어요.</li>
+      <li data-t="mac2">TorangTorang 을 <b>오른쪽 클릭 → 열기 → 열기</b> (처음 한 번만). 아직 개발자 서명이 없어서 그냥 더블클릭하면 경고가 떠요.</li>
+      <li data-t="mac3">그래도 막히면 시스템 설정 → 개인정보 보호 및 보안 → 아래쪽 <b>그래도 열기</b>.</li>
+    </ol>
+  </details>
+  <details id="help-win">
+    <summary data-t="winHowTitle">윈도우에서 실행하는 법</summary>
+    <ol>
+      <li data-t="win1">받은 zip 을 오른쪽 클릭 → <b>압축 풀기</b> (zip 안에서 바로 실행하면 안 돼요).</li>
+      <li data-t="win2">풀린 폴더의 <b>TorangTorang.exe</b> 실행.</li>
+      <li data-t="win3">"Windows의 PC 보호" 창이 뜨면 <b>추가 정보 → 실행</b>.</li>
+    </ol>
+  </details>
+  <details>
+    <summary data-t="controlsTitle">조작법</summary>
+    <ol>
+      <li data-t="ctl1">키보드·마우스: 방향키 이동, <kbd>F</kbd> 상호작용, <kbd>A</kbd> 공격, <kbd>Q W E R</kbd> 스킬, <kbd>Esc</kbd> 메뉴 (설정에서 그래픽·언어)</li>
+      <li data-t="ctl2">게임패드: 왼쪽 스틱 이동, A 상호작용, X 공격, Start 메뉴 — 메뉴는 십자 버튼으로 골라요</li>
+      <li data-t="ctl3">게임이 끊기면 Esc → 설정 → 그래픽 → 단계를 낮춰 보세요.</li>
+    </ol>
+  </details>
+
+  <footer>
+    <span data-t="footer">개발 중인 테스트 빌드예요. 세이브는 이 컴퓨터에만 저장돼요.</span>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var REPO = "HOONY-LEE/torangtorang-download";
+  var T = {
+    ko: {
+      tagline: "말랑말랑 레스토랑 & 모험", test: "테스트 빌드", recommended: "이 컴퓨터에 추천",
+      macDesc: "애플 실리콘(M1~)과 인텔 맥 모두 돼요.", winDesc: "윈도우 10·11 (64비트)",
+      downloadMac: "맥용 받기", downloadWin: "윈도우용 받기",
+      macHowTitle: "맥에서 실행하는 법", winHowTitle: "윈도우에서 실행하는 법", controlsTitle: "조작법",
+      mac1: "받은 zip 을 더블클릭해서 풀어요.",
+      mac2: "TorangTorang 을 <b>오른쪽 클릭 → 열기 → 열기</b> (처음 한 번만). 아직 개발자 서명이 없어서 그냥 더블클릭하면 경고가 떠요.",
+      mac3: "그래도 막히면 시스템 설정 → 개인정보 보호 및 보안 → 아래쪽 <b>그래도 열기</b>.",
+      win1: "받은 zip 을 오른쪽 클릭 → <b>압축 풀기</b> (zip 안에서 바로 실행하면 안 돼요).",
+      win2: "풀린 폴더의 <b>TorangTorang.exe</b> 실행.",
+      win3: "\"Windows의 PC 보호\" 창이 뜨면 <b>추가 정보 → 실행</b>.",
+      ctl1: "키보드·마우스: 방향키 이동, <kbd>F</kbd> 상호작용, <kbd>A</kbd> 공격, <kbd>Q W E R</kbd> 스킬, <kbd>Esc</kbd> 메뉴 (설정에서 그래픽·언어)",
+      ctl2: "게임패드: 왼쪽 스틱 이동, A 상호작용, X 공격, Start 메뉴 — 메뉴는 십자 버튼으로 골라요",
+      ctl3: "게임이 끊기면 Esc → 설정 → 그래픽 → 단계를 낮춰 보세요.",
+      footer: "개발 중인 테스트 빌드예요. 세이브는 이 컴퓨터에만 저장돼요.",
+      mobile: "휴대폰·태블릿용은 아직 없어요. 맥이나 윈도우 컴퓨터에서 받아 주세요.",
+      linux: "리눅스용은 아직 없어요.",
+      updated: "업데이트 {0}"
+    },
+    en: {
+      tagline: "A squishy restaurant & adventure", test: "Test build", recommended: "Recommended for this computer",
+      macDesc: "Works on Apple silicon (M1 and later) and Intel Macs.", winDesc: "Windows 10 / 11 (64-bit)",
+      downloadMac: "Download for Mac", downloadWin: "Download for Windows",
+      macHowTitle: "How to run on Mac", winHowTitle: "How to run on Windows", controlsTitle: "Controls",
+      mac1: "Double-click the zip to unpack it.",
+      mac2: "<b>Right-click TorangTorang → Open → Open</b> (first time only). It isn't signed by a developer yet, so a plain double-click shows a warning.",
+      mac3: "Still blocked? System Settings → Privacy & Security → <b>Open Anyway</b> at the bottom.",
+      win1: "Right-click the zip → <b>Extract All</b> (don't run it from inside the zip).",
+      win2: "Run <b>TorangTorang.exe</b> in the extracted folder.",
+      win3: "If \"Windows protected your PC\" appears, click <b>More info → Run anyway</b>.",
+      ctl1: "Keyboard & mouse: arrow keys move, <kbd>F</kbd> interact, <kbd>A</kbd> attack, <kbd>Q W E R</kbd> skills, <kbd>Esc</kbd> menu (graphics & language in Settings)",
+      ctl2: "Gamepad: left stick move, A interact, X attack, Start menu — use the D-pad in menus",
+      ctl3: "If the game stutters, go to Esc → Settings → Graphics and lower the preset.",
+      footer: "This is an in-development test build. Saves stay on this computer.",
+      mobile: "There's no phone or tablet version yet. Please download on a Mac or Windows computer.",
+      linux: "There's no Linux version yet.",
+      updated: "Updated {0}"
+    }
+  };
+
+  // ---------- 운영체제 알아내기 ----------
+  function detectOS() {
+    var ua = navigator.userAgent || "";
+    var platform = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+    var touchMac = /Mac/i.test(platform) && navigator.maxTouchPoints > 1; // 아이패드가 맥처럼 보일 때
+    if (/Android|iPhone|iPad|iPod/i.test(ua) || touchMac) return "mobile";
+    if (/Win/i.test(platform) || /Windows/i.test(ua)) return "win";
+    if (/Mac/i.test(platform) || /Mac OS X/i.test(ua)) return "mac";
+    if (/Linux|CrOS/i.test(platform + ua)) return "linux";
+    return "unknown";
+  }
+  var os = detectOS();
+
+  var lang = "ko";
+  try { lang = localStorage.getItem("torang-lang") || ""; } catch (e) {}
+  if (lang !== "ko" && lang !== "en") lang = /^ko/i.test(navigator.language || "") ? "ko" : "en";
+
+  var release = null;
+
+  function fmt(s, v) { return s.replace("{0}", v); }
+
+  function render() {
+    var t = T[lang];
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-t]").forEach(function (el) {
+      var key = el.getAttribute("data-t");
+      if (t[key]) el.innerHTML = t[key];
+    });
+    document.querySelectorAll("[data-set-lang]").forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-set-lang") === lang ? "true" : "false");
+    });
+
+    var mac = document.getElementById("card-mac"), win = document.getElementById("card-win");
+    mac.classList.toggle("recommended", os === "mac");
+    win.classList.toggle("recommended", os === "win");
+    // 추천하는 쪽을 앞(왼쪽)에, 설명도 그 운영체제 것을 펼쳐 둔다
+    var grid = mac.parentNode;
+    if (os === "win") grid.insertBefore(win, mac); else grid.insertBefore(mac, win);
+    document.getElementById("help-mac").open = os === "mac";
+    document.getElementById("help-win").open = os === "win";
+
+    var notice = document.getElementById("notice");
+    notice.textContent = os === "mobile" ? t.mobile : os === "linux" ? t.linux : "";
+
+    if (release) {
+      document.getElementById("version").textContent = release.version;
+      if (release.date) document.getElementById("date").textContent = t.test + " · " + fmt(t.updated, release.date);
+      if (release.mac) document.getElementById("size-mac").textContent = release.mac;
+      if (release.win) document.getElementById("size-win").textContent = release.win;
+    }
+  }
+
+  document.querySelectorAll("[data-set-lang]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      lang = b.getAttribute("data-set-lang");
+      try { localStorage.setItem("torang-lang", lang); } catch (e) {}
+      render();
+    });
+  });
+
+  render();
+
+  // ---------- 최신 릴리스 정보 (버전·크기·날짜) ----------
+  fetch("https://api.github.com/repos/" + REPO + "/releases/latest")
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (data) {
+      if (!data) return;
+      function size(name) {
+        var a = (data.assets || []).filter(function (x) { return x.name === name; })[0];
+        return a ? (a.size / 1048576).toFixed(0) + " MB" : "";
+      }
+      release = {
+        version: data.tag_name || "",
+        date: data.published_at ? new Date(data.published_at).toLocaleDateString(lang === "ko" ? "ko-KR" : "en-US") : "",
+        mac: size("TorangTorang-Mac.zip"),
+        win: size("TorangTorang-Windows.zip")
+      };
+      render();
+    })
+    .catch(function () {});
+})();
+</script>
+</body>
+</html>
