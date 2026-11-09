@@ -66,6 +66,16 @@
   details li { margin: 6px 0; }
   kbd { background: var(--bg2); border-radius: 6px; padding: 1px 6px; font-family: inherit; font-size: 14px; }
   footer { margin-top: 40px; text-align: center; color: var(--muted); font-size: 13px; }
+  .updates { margin-top: 28px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; }
+  .updates h2 { margin: 0 0 6px; font-size: 18px; }
+  .update { border-top: 1px dashed var(--line); padding: 10px 0 4px; }
+  .update:first-of-type { border-top: 0; }
+  .update-head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+  .update-version { font-family: "Nunito", sans-serif; font-weight: 800; color: var(--peach-dark); }
+  .update-date { color: var(--muted); font-size: 14px; }
+  .update-new { background: var(--mint); color: #20352c; border-radius: 999px; padding: 0 8px; font-size: 12px; font-weight: 700; }
+  .update ul { margin: 4px 0 0; padding-left: 20px; color: var(--ink); font-size: 15px; }
+  .update li { margin: 2px 0; overflow-wrap: anywhere; }
   .lang { position: fixed; top: 14px; right: 16px; display: flex; gap: 6px; }
   .lang button { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 999px; padding: 4px 10px; font: inherit; font-size: 13px; cursor: pointer; }
   .lang button[aria-pressed="true"] { border-color: var(--peach); }
@@ -82,8 +92,8 @@
     <h1 class="logo">토랑토랑</h1>
     <p class="tagline" data-t="tagline">말랑말랑 레스토랑 &amp; 모험</p>
     <div class="meta">
-      <span class="pill" id="version">v0.1.0</span>
-      <span class="pill" id="date" data-t="test">테스트 빌드</span>
+      <span class="pill" id="version" data-build-version="v0.1.0-20261109-1452">v0.1.0</span>
+      <span class="pill" id="date" data-build-date="2026-11-09">테스트 빌드</span>
     </div>
   </header>
 
@@ -113,6 +123,11 @@
 
   <p class="notice" id="notice"></p>
 
+  <section class="updates" aria-labelledby="updates-title">
+    <h2 id="updates-title" data-t="updatesTitle">업데이트 내역</h2>
+    <div id="updates"></div>
+  </section>
+
   <details id="help-mac">
     <summary data-t="macHowTitle">맥에서 실행하는 법</summary>
     <ol>
@@ -132,7 +147,7 @@
   <details>
     <summary data-t="controlsTitle">조작법</summary>
     <ol>
-      <li data-t="ctl1">키보드·마우스: 방향키 이동, <kbd>F</kbd> 상호작용, <kbd>A</kbd> 공격, <kbd>Q W E R</kbd> 스킬, <kbd>Esc</kbd> 메뉴 (설정에서 그래픽·언어)</li>
+      <li data-t="ctl1">키보드·마우스: 방향키 이동, <kbd>A</kbd> 상호작용·공격 (앞에 말 걸 대상이 있으면 상호작용), 마우스 왼쪽 공격·도구, <kbd>Q W E R</kbd> 스킬, <kbd>Esc</kbd> 메뉴 (설정에서 그래픽·언어)</li>
       <li data-t="ctl2">게임패드: 왼쪽 스틱 이동, A 상호작용, X 공격, Start 메뉴 — 메뉴는 십자 버튼으로 골라요</li>
       <li data-t="ctl3">게임이 끊기면 Esc → 설정 → 그래픽 → 단계를 낮춰 보세요.</li>
     </ol>
@@ -158,13 +173,14 @@
       win1: "받은 zip 을 오른쪽 클릭 → <b>압축 풀기</b> (zip 안에서 바로 실행하면 안 돼요).",
       win2: "풀린 폴더의 <b>TorangTorang.exe</b> 실행.",
       win3: "\"Windows의 PC 보호\" 창이 뜨면 <b>추가 정보 → 실행</b>.",
-      ctl1: "키보드·마우스: 방향키 이동, <kbd>F</kbd> 상호작용, <kbd>A</kbd> 공격, <kbd>Q W E R</kbd> 스킬, <kbd>Esc</kbd> 메뉴 (설정에서 그래픽·언어)",
+      ctl1: "키보드·마우스: 방향키 이동, <kbd>A</kbd> 상호작용·공격 (앞에 말 걸 대상이 있으면 상호작용), 마우스 왼쪽 공격·도구, <kbd>Q W E R</kbd> 스킬, <kbd>Esc</kbd> 메뉴 (설정에서 그래픽·언어)",
       ctl2: "게임패드: 왼쪽 스틱 이동, A 상호작용, X 공격, Start 메뉴 — 메뉴는 십자 버튼으로 골라요",
       ctl3: "게임이 끊기면 Esc → 설정 → 그래픽 → 단계를 낮춰 보세요.",
       footer: "개발 중인 테스트 빌드예요. 세이브는 이 컴퓨터에만 저장돼요.",
       mobile: "휴대폰·태블릿용은 아직 없어요. 맥이나 윈도우 컴퓨터에서 받아 주세요.",
       linux: "리눅스용은 아직 없어요.",
-      updated: "업데이트 {0}"
+      updated: "업데이트 {0}",
+      updatesTitle: "업데이트 내역", latest: "최신", noUpdates: "아직 기록이 없어요."
     },
     en: {
       tagline: "A squishy restaurant & adventure", test: "Test build", recommended: "Recommended for this computer",
@@ -177,13 +193,14 @@
       win1: "Right-click the zip → <b>Extract All</b> (don't run it from inside the zip).",
       win2: "Run <b>TorangTorang.exe</b> in the extracted folder.",
       win3: "If \"Windows protected your PC\" appears, click <b>More info → Run anyway</b>.",
-      ctl1: "Keyboard & mouse: arrow keys move, <kbd>F</kbd> interact, <kbd>A</kbd> attack, <kbd>Q W E R</kbd> skills, <kbd>Esc</kbd> menu (graphics & language in Settings)",
+      ctl1: "Keyboard & mouse: arrow keys move, <kbd>A</kbd> interact / attack (interacts when something is in front), left click attack / tool, <kbd>Q W E R</kbd> skills, <kbd>Esc</kbd> menu (graphics & language in Settings)",
       ctl2: "Gamepad: left stick move, A interact, X attack, Start menu — use the D-pad in menus",
       ctl3: "If the game stutters, go to Esc → Settings → Graphics and lower the preset.",
       footer: "This is an in-development test build. Saves stay on this computer.",
       mobile: "There's no phone or tablet version yet. Please download on a Mac or Windows computer.",
       linux: "There's no Linux version yet.",
-      updated: "Updated {0}"
+      updated: "Updated {0}",
+      updatesTitle: "Update history", latest: "Latest", noUpdates: "No updates recorded yet."
     }
   };
 
@@ -205,6 +222,38 @@
   if (lang !== "ko" && lang !== "en") lang = /^ko/i.test(navigator.language || "") ? "ko" : "en";
 
   var release = null;
+  // 업데이트 기록: 올릴 때 tools/release-notes.py 가 site/updates.json 을 여기에 박아 넣는다 (최신이 맨 앞)
+  var UPDATES = [{"version": "v0.1.0-20261109-1452", "date": "2026-11-09", "notes": ["동서남북 사냥터 4곳 · 미니맵 방위 · 나뭇가지 → 원목 · 건물을 Fantasy Town Kit 로 · KayKit 가구·돌 난로 · 다운로드 페이지 업데이트 내역", "롤 같은 전투 HUD · 레벨 업 연출 · 퀘스트 \"수락하기/거절하기\" · 목장 헛간·여물·친밀도·몰기 · 잠자기와 밤", "내 캐릭터를 KayKit 조각 몸으로 · 의상/장비 두 겹 · 방패 · KayKit 무기", "A 키 하나로 · 마우스로 끌어서 짓기(캐릭터가 가서 짓기) · 꾸미기 가구 목록", "문 표시 · 큰 테이블·새 테이블/의자 · 놓을 수 없는 가구 보관함으로", "계정 단계 없애기: 게임 시작 → 바로 캐릭터 고르기", "버그: 계정·캐릭터 지우기 확인 창이 멈춤", "나무 흔들기·나뭇가지 울타리·목수 바우·외곽 숲·사람 캐릭터 모델", "마을 생활: 도구 휠·자유 밭·낚시·벌목·퀘스트·NPC·로켓배달·상점 그림/찾기"]}, {"version": "v0.1.0-test", "date": "2026-11-08", "notes": ["목장·작물 추가·숲 몬스터 8종 · 레스토랑 화면 다듬기", "농사: 밭·물 주기·과일나무 — 레스토랑 3단계", "배경 음악 · 레스토랑 음악 고르기 · 주방 소리", "레스토랑 영업: 손님 착석·주문·서빙·결제 — 레스토랑 2단계", "요리 화면(2D 조합) · 재료 등급 · 주문대 · 식료품점 — 레스토랑 1단계", "블렌더 작업 환경", "다운로드 사이트", "설정 화면 · 다국어(한국어/영어) · 게임패드 메뉴"]}];
+  var versionEl = document.getElementById("version"), dateEl = document.getElementById("date");
+  var BUILD = { version: versionEl.getAttribute("data-build-version"), date: dateEl.getAttribute("data-build-date") };
+  if (BUILD.version === "dev" && UPDATES.length) BUILD = { version: UPDATES[0].version, date: UPDATES[0].date };
+
+  function localDate(iso) {
+    if (!iso || iso === "dev") return "";
+    var d = new Date(iso + (iso.length === 10 ? "T12:00:00" : ""));
+    return isNaN(d) ? iso : d.toLocaleDateString(lang === "ko" ? "ko-KR" : "en-US", { year: "numeric", month: "long", day: "numeric" });
+  }
+
+  function renderUpdates(t) {
+    var box = document.getElementById("updates");
+    box.textContent = "";
+    if (!UPDATES.length) { box.textContent = t.noUpdates; return; }
+    UPDATES.forEach(function (u, i) {
+      var item = document.createElement("div");
+      item.className = "update";
+      var head = document.createElement("div");
+      head.className = "update-head";
+      var v = document.createElement("span"); v.className = "update-version"; v.textContent = u.version;
+      var d = document.createElement("span"); d.className = "update-date"; d.textContent = localDate(u.date);
+      head.appendChild(v); head.appendChild(d);
+      if (i === 0) { var n = document.createElement("span"); n.className = "update-new"; n.textContent = t.latest; head.appendChild(n); }
+      item.appendChild(head);
+      var ul = document.createElement("ul");
+      (u.notes || []).forEach(function (note) { var li = document.createElement("li"); li.textContent = note; ul.appendChild(li); });
+      item.appendChild(ul);
+      box.appendChild(item);
+    });
+  }
 
   function fmt(s, v) { return s.replace("{0}", v); }
 
@@ -231,9 +280,13 @@
     var notice = document.getElementById("notice");
     notice.textContent = os === "mobile" ? t.mobile : os === "linux" ? t.linux : "";
 
+    // 버전·날짜: 페이지에 박힌 값 → GitHub 최신 릴리스가 읽히면 그것으로
+    var shownVersion = release ? release.version : BUILD.version;
+    var shownDate = release ? release.date : localDate(BUILD.date);
+    if (shownVersion && shownVersion !== "dev") versionEl.textContent = shownVersion;
+    dateEl.textContent = shownDate ? t.test + " · " + fmt(t.updated, shownDate) : t.test;
+    renderUpdates(t);
     if (release) {
-      document.getElementById("version").textContent = release.version;
-      if (release.date) document.getElementById("date").textContent = t.test + " · " + fmt(t.updated, release.date);
       if (release.mac) document.getElementById("size-mac").textContent = release.mac;
       if (release.win) document.getElementById("size-win").textContent = release.win;
     }
@@ -260,7 +313,7 @@
       }
       release = {
         version: data.tag_name || "",
-        date: data.published_at ? new Date(data.published_at).toLocaleDateString(lang === "ko" ? "ko-KR" : "en-US") : "",
+        date: data.published_at ? new Date(data.published_at).toLocaleDateString(lang === "ko" ? "ko-KR" : "en-US", { year: "numeric", month: "long", day: "numeric" }) : "",
         mac: size("TorangTorang-Mac.zip"),
         win: size("TorangTorang-Windows.zip")
       };
